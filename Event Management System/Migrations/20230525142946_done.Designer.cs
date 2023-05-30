@@ -2,6 +2,7 @@
 using Event_Management_System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Event_Management_System.Migrations
 {
     [DbContext(typeof(EventMgtSysDBContext))]
-    partial class EventMgtSysDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230525142946_done")]
+    partial class done
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -34,10 +37,6 @@ namespace Event_Management_System.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -57,7 +56,7 @@ namespace Event_Management_System.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("EventModelId")
+                    b.Property<int>("EventModelID")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
@@ -66,7 +65,7 @@ namespace Event_Management_System.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EventModelId");
+                    b.HasIndex("EventModelID");
 
                     b.ToTable("Registrations");
                 });
@@ -75,7 +74,7 @@ namespace Event_Management_System.Migrations
                 {
                     b.HasOne("Event_Management_System.Models.EventModel", null)
                         .WithMany("Registrations")
-                        .HasForeignKey("EventModelId")
+                        .HasForeignKey("EventModelID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

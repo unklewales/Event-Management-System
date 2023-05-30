@@ -28,7 +28,8 @@ namespace Event_Management_System.Controllers
                 EventName = model.EventName,
                 Location = model.Location,
                 Description = model.Description,
-                DateOfEvent = model.DateOfEvent,    
+                DateOfEvent = model.DateOfEvent,
+                ImageUrl= model.ImageUrl
                 
             };
             context.Events.Add(eventModel);
@@ -68,7 +69,7 @@ namespace Event_Management_System.Controllers
             {
                 UserName = model.UserName,
                 Email = model.Email,
-                EventID = model.EventID,
+                EventModelId = model.EventModelId
             };
 
             context.Registrations.Add(registeredUser);
@@ -80,11 +81,19 @@ namespace Event_Management_System.Controllers
         [Route("registrations/{id}")]
         public IActionResult GetRegisteredUserDetails(int id)
         {
-            var registeredUser = context.Registrations.Where(x => x.Id == id).FirstOrDefault();
-            if (registeredUser != null)
-            {
-                return Ok(registeredUser);
-            }
+            //try
+            //{
+                var registeredUser = context.Registrations.Where(x => x.Id == id).FirstOrDefault();
+                if (registeredUser != null)
+                {
+                    return Ok(registeredUser);
+                }
+           // }
+           // catch (Exception)
+            //{
+
+             //   throw;
+            //}
             return Ok("Record not found!");
         }
     }

@@ -2,6 +2,7 @@
 using Event_Management_System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Event_Management_System.Migrations
 {
     [DbContext(typeof(EventMgtSysDBContext))]
-    partial class EventMgtSysDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230525142155_returnfewfields")]
+    partial class returnfewfields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -34,10 +37,6 @@ namespace Event_Management_System.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -57,6 +56,9 @@ namespace Event_Management_System.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("EventID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("EventModelId")
                         .HasColumnType("INTEGER");
 
@@ -73,11 +75,13 @@ namespace Event_Management_System.Migrations
 
             modelBuilder.Entity("Event_Management_System.Models.Registration", b =>
                 {
-                    b.HasOne("Event_Management_System.Models.EventModel", null)
+                    b.HasOne("Event_Management_System.Models.EventModel", "EventModel")
                         .WithMany("Registrations")
                         .HasForeignKey("EventModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("EventModel");
                 });
 
             modelBuilder.Entity("Event_Management_System.Models.EventModel", b =>
